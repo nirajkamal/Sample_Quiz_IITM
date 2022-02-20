@@ -5,10 +5,10 @@
         </div> -->
         <div class="d-flex justify-content-around py-3">
             <div class="question-number">
-                <span style="font-style: italic; font-size:small">Question 1 of 10</span>
+                <span style="font-style: italic; font-size:small; text-align:center">Question:<br>{{currentQuestion+1}} of {{questionList.length}}</span>
             </div>
             <div class="timer">
-                <h6 style="text-align:center; font-size:small">Time Remaining:<br> 60 sec ⏱</h6>
+                <h6 style="text-align:center; font-size:small">Time Remaining:<br> {{counter}} sec ⏱</h6>
             </div>
             <div class="total-time" style="text-align:center; font-size:small">
                 <span>Total Time:<br> 
@@ -16,27 +16,64 @@
             </div>
         </div>
         <div class="progress mb-3">
-            <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+            <div class="progress-bar bg-info" role="progressbar" [ngStyle]="{'width': progress+'%'}" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
+
         <div class="question">
-            <div class="card"><h4>What is your name?</h4></div>
+            <div class="card"><h4>{{questionList[currentQuestion]?.question}}</h4></div>
         </div>
-        <div class="options">
+        <!-- MAQ options -->
+        <div class="options" *ngIf="questionList[currentQuestion]?.type=='MAQ'">
+            <div class="instruction">
+                <span style="font-style: italic; font-size:small; text-align:center">Multiple answers may be correct - choose all correct options</span>
+            </div>
             <ol>
-                <li><div class="card">name1</div></li>
-                <li><div class="card">name1</div></li>
-                <li><div class="card">name1</div></li>
-                <li><div class="card">name1</div></li>
+                <li *ngFor="let option of questionList[currentQuestion]?.answer_choices"><div class="card">{{option}}</div></li>
             </ol>
         </div>
+
+        <!-- MCQ options -->
+        <div class="options" *ngIf="questionList[currentQuestion]?.type=='MCQ'">
+            <div class="instruction">
+                <span style="font-style: italic; font-size:small; text-align:center">Choose one option</span>
+            </div>
+            <ol>
+                <li *ngFor="let option of questionList[currentQuestion]?.answer_choices"><div class="card">{{option}}</div></li>
+            </ol>
+        </div>
+
+        <!-- FITB options -->
+        <!-- <div class="options" *ngIf="questionList[currentQuestion]?.type.slice(0,4)=='FITB'">
+            <div class="instruction">
+                <span style="font-style: italic; font-size:small; text-align:center">Fill in the blanks in order. Answers are case-sensitive.</span>
+            </div>
+            <ol>
+                <li *ngFor="let i = 0; i < parseInt(questionList[currentQuestion]?.type.slice(4,5)); i++">
+                    <div class="input-group mb-3">
+                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                </li>
+            </ol>
+        </div> -->
+
+        <!-- MTF options -->
+        <div class="options" *ngIf="questionList[currentQuestion]?.type=='MTF'">
+            <div class="instruction">
+                <span style="font-style: italic; font-size:small; text-align:center">Match the following by entering the corresponding numbers.</span>
+            </div>
+            <ol>
+                <li *ngFor="let option of questionList[currentQuestion]?.answer_choices"><div class="card">{{option}}</div></li>
+            </ol>
+        </div>
+
         <div class="d-flex justify-content-between">
-            <button class="btn">
+            <button [disabled]="currentQuestion===0" class="btn" (click)="previousQuestion()">
                 <i class="fa fa-chevron-left fa-2x" area-hidden="true"></i>
             </button>
             <button class="btn">
                 <i class="fa fa-refresh fa-2x" area-hidden="true"></i>
             </button>
-            <button class="btn">
+            <button [disabled]="currentQuestion===questionList.length-1" class="btn" (click)="nextQuestion()">
                 <i class="fa fa-chevron-right fa-2x" area-hidden="true"></i>
             </button>
         </div>

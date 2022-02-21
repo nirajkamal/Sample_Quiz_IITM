@@ -6,14 +6,16 @@ import { AppComponent } from './app.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { QuestionsComponent } from './questions/questions.component';
 import { HeaderComponent } from './header/header.component';
-import {HttpClientModule} from '@angular/common/http'
+import {HttpClientModule} from '@angular/common/http';
+import { ChangeBgDirective } from './change-bg.directive'
 
 @NgModule({
   declarations: [
     AppComponent,
     WelcomeComponent,
     QuestionsComponent,
-    HeaderComponent
+    HeaderComponent,
+    ChangeBgDirective
   ],
   imports: [
     BrowserModule,

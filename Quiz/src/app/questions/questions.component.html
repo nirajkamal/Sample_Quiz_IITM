@@ -5,7 +5,9 @@
         </div> -->
         <div class="d-flex justify-content-around py-3">
             <div class="timer">
-                <h6 style="text-align:center; font-size:small">Time Remaining:<br> {{counter}} sec ⏱</h6>
+                <h6 style="text-align:center; font-size:small">
+                    Time Remaining:<br>
+                    {{counter}} sec ⏱</h6>
             </div>
             
             <div class="question-number">
@@ -14,7 +16,7 @@
         
             <div class="total-time" style="text-align:center; font-size:small">
                 <span>Total Time:<br> 
-                    100 sec</span>
+                    {{totalTime}} sec</span>
             </div>
         </div>
         <!-- <div class="progress mb-3">
@@ -30,7 +32,7 @@
                 <span style="font-style: italic; font-size:small; text-align:center">Multiple answers may be correct - choose all correct options</span>
             </div>
             <ol>
-                <li *ngFor="let option of questionList[currentQuestion]?.answer_choices"><div class="card">{{option}}</div></li>
+                <li *ngFor="let option of questionList[currentQuestion]?.answer_choices" (click)="answerMAQ(currentQuestion+1,option)"><div class="card">{{option}}</div></li>
             </ol>
         </div>
 
@@ -40,7 +42,7 @@
                 <span style="font-style: italic; font-size:small; text-align:center">Choose one option</span>
             </div>
             <ol>
-                <li *ngFor="let option of questionList[currentQuestion]?.answer_choices"><div class="card">{{option}}</div></li>
+                <li *ngFor="let option of questionList[currentQuestion]?.answer_choices" (click)="answerMCQ(currentQuestion+1,option)"><div class="card">{{option}}</div></li>
             </ol>
         </div>
 
@@ -55,6 +57,7 @@
                     <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="answer-1">
                     </div>
                 </li>
+                <button type="button" class="btn btn-secondary">Submit</button>
             </ol>
         </div>
 
@@ -74,6 +77,7 @@
                     <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="answer-2">
                     </div>
                 </li>
+                <button type="button" class="btn btn-secondary">Submit</button>
             </ol>
         </div>
 
@@ -83,7 +87,14 @@
                 <span style="font-style: italic; font-size:small; text-align:center">Match the following by entering the corresponding numbers.</span>
             </div>
             <ol>
-                <li *ngFor="let option of questionList[currentQuestion]?.answer_choices"><div class="card">{{option}}</div></li>
+                <li class="card" *ngFor="let option of answers[currentQuestion+1][0]"> 
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">{{option}}</span>
+                        <span class="input-group-text">{{answers[currentQuestion+1][1][answers[currentQuestion+1][0].indexOf(option)]}}</span>
+                        <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
+                      </div>
+                </li>
+                <button type="button" class="btn btn-secondary">Submit</button>
             </ol>
         </div>
 

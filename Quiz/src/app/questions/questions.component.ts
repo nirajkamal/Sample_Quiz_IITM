@@ -63,11 +63,9 @@ export class QuestionsComponent implements OnInit {
               keys.push(option[Object.keys(option)[1]]);
             };
             let shuffledkeys:any = [];
-            shuffledkeys = keys;
-            shuffledkeys.sort(() => Math.random() - 0.5);
-            // for (let k = keys.length - 1; k > 0; k--) {
-            //   const j = Math.floor(Math.random() * (k + 1));
-            //   [shuffledkeys[k], shuffledkeys[j]] = [keys[j], keys[k]];}
+            for (let k = keys.length - 1; k > 0; k--) {
+             const j = Math.floor(Math.random() * (k + 1));
+            [shuffledkeys[k], shuffledkeys[j]] = [keys[j], keys[k]];}
             this.answers[i]=[legends, shuffledkeys, keys]
           }
           i+=1;

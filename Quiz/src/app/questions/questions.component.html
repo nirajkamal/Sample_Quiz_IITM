@@ -89,9 +89,9 @@
             <ol>
                 <li class="card" *ngFor="let option of answers[currentQuestion+1][0]"> 
                     <div class="input-group mb-3">
-                        <span class="input-group-text">{{option}}</span>
-                        <span class="input-group-text">{{answers[currentQuestion+1][1][answers[currentQuestion+1][0].indexOf(option)]}}</span>
-                        <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
+                        <span style="width:30%" class="input-group-text">{{answers[currentQuestion+1][0].indexOf(option)+1 + ' ' + option}}</span>
+                        <span style="width:30%" class="input-group-text">{{answers[currentQuestion+1][1][answers[currentQuestion+1][0].indexOf(option)]}}</span>
+                        <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" placeholder="Corresponding Option Number">
                       </div>
                 </li>
                 <button type="button" class="btn btn-secondary">Submit</button>
